@@ -159,9 +159,40 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 ] */
 // NOTE: Bununla ilgili bir test yoktur. Eğer logladığınız sonuçlar yukarıdakine benziyor ise tmamlandı sayabilirsiniz.
 
-function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function skorTabelasi(periyotSkoru, takimSkoru, ceyrekNo) {
+  let sonuc = [];
+  let EvSahibi = 0;
+  let KonukTakim = 0;
+  for (let i = 1; i <= ceyrekNo; i++) {
+    const period = periyotSkoru(takimSkoru);
+    let metin =
+      i +
+      " .  Periyot: Ev Sahibi " +
+      period.EvSahibi +
+      " - Konuk Takım " +
+      period.KonukTakim;
+    sonuc.push(metin);
+    EvSahibi += period.EvSahibi;
+    KonukTakim += period.KonukTakim;
+  }
+  let skor =
+    "Maç Sonucu: Ev Sahibi " + EvSahibi + " - Konuk Takım " + KonukTakim;
+  sonuc.push(skor);
+
+  let i = 1;
+  while (EvSahibi === KonukTakim) {
+    const period = periyotSkoru(takimSkoru);
+    EvSahibi = period.EvSahibi;
+    KonukTakim = period.KonukTakim;
+    skor.push(
+      i + " .uzatma EvSahibi " + EvSahibi + " - Konuk Takım " + KonukTakim
+    );
+    i++;
+  }
+
+  return sonuc;
 }
+console.log(skorTabelasi(periyotSkoru, takimSkoru, 4));
 
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
 function sa() {
