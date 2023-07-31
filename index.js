@@ -42,7 +42,7 @@ console.log(
   sko1de closure kullanılmış. skorGuncelle fonksiyonu ilk skor değerini parent fonksiyonundan alıyor 
 
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
-veri saklama durumunda skor1 tercih edilebilir çünkü değişkene yalnızca o fonksiyon içerisinden erişilebilir. Eğer değişkene birden fazla yerde erişmek istiyorsak skor2 tercih edilebilir. 
+veri saklama durumunda ve skoru birden fazla kez kullanmak isteniyorsa skor1 tercih edilebilir çünkü değişkene yalnızca o fonksiyon içerisinden erişilebilir. Eğer değişkene birden fazla yerde erişmek istiyorsak ve tek bir skor kullanılmak isteniyorsa skor2 tercih edilebilir. 
 
 */
 
@@ -93,23 +93,17 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */
 
-function macSonucu(callback, i) {
-  const sonuc = {
+function macSonucu(callback, ceyrek) {
+  let evSahibi = 0;
+  let konukTakim = 0;
+  for (let i = 1; i <= ceyrek; i++) {
+    evSahibi += callback();
+    konukTakim += callback();
+  }
+  return {
     EvSahibi: evSahibi,
     KonukTakim: konukTakim,
   };
-
-  evSahibi = callback(takimSkoru);
-  konukTakim = callback(takimSkoru);
-  for (i = 0; i < 4; i++) {
-    for (var evSahibi in i) {
-      return (sonuc.EvSahibi = evSahibi + evSahibi);
-    }
-    for (var konukTakim in i) {
-      return (sonuc.KonukTakim = konukTakim + konukTakim);
-    }
-  }
-  return sonuc;
 }
 console.log(macSonucu(takimSkoru, 4));
 /* Zorlayıcı Görev 4: periyotSkoru()
@@ -125,10 +119,15 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
 }
   */
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function periyotSkoru(callback) {
+  let evSahibi = callback();
+  let konukTakim = callback();
+  return {
+    EvSahibi: evSahibi,
+    KonukTakim: konukTakim,
+  };
 }
-
+console.log(periyotSkoru(takimSkoru));
 /* Zorlayıcı Görev 5: skorTabelasi() 
 Aşağıdaki skorTabelasi() fonksiyonunu kullanarak aşağıdakileri yapınız:
   1. İlk parametre olarak Görev 4'te oluşturduğumuz 'periyotSkoru'nu bir değişken olarak almalı
